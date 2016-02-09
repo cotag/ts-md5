@@ -50,76 +50,57 @@ THE SOFTWARE.
   
 
 */
-
-export class Md5 {
-    private static stateIdentity = new Int32Array([1732584193, -271733879, -1732584194, 271733878]);
-    private static buffer32Identity = new Int32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-    private static hexChars = '0123456789abcdef';
-    private static hexOut = [];
-
-    // Permanent instance is to use for one-call hashing
-    private static onePassHasher = new Md5();
-
-
-    private _dataLength: number;
-    private _bufferLength: number;
-
-    private _state: Int32Array = new Int32Array(4);
-    private _buffer: ArrayBuffer = new ArrayBuffer(68);
-    private _buffer8: Uint8Array;
-    private _buffer32: Uint32Array;
-
-
+var Md5 = (function () {
+    function Md5() {
+        this._state = new Int32Array(4);
+        this._buffer = new ArrayBuffer(68);
+        this._buffer8 = new Uint8Array(this._buffer, 0, 68);
+        this._buffer32 = new Uint32Array(this._buffer, 0, 17);
+        this.start();
+    }
     // One time hashing functions
-    static hashStr(str: string, raw: boolean = false) {
+    Md5.hashStr = function (str, raw) {
+        if (raw === void 0) { raw = false; }
         return this.onePassHasher
             .start()
             .appendStr(str)
             .end(raw);
     };
-
-    static hashAsciiStr(str: string, raw: boolean = false) {
+    ;
+    Md5.hashAsciiStr = function (str, raw) {
+        if (raw === void 0) { raw = false; }
         return this.onePassHasher
             .start()
             .appendAsciiStr(str)
             .end(raw);
     };
-
-
-    constructor() {
-        this._buffer8 = new Uint8Array(this._buffer, 0, 68);
-        this._buffer32 = new Uint32Array(this._buffer, 0, 17);
-        this.start();
-    }
-
-    start() {
+    ;
+    Md5.prototype.start = function () {
         this._dataLength = 0;
         this._bufferLength = 0;
         this._state.set(Md5.stateIdentity);
         return this;
-    }
-
+    };
     // Char to code point to to array conversion:
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt
     // #Example.3A_Fixing_charCodeAt_to_handle_non-Basic-Multilingual-Plane_characters_if_their_presence_earlier_in_the_string_is_unknown
-    appendStr(str: string) {
-        var buf8 = this._buffer8,
-            buf32 = this._buffer32,
-            bufLen = this._bufferLength,
-            code, i;
-
+    Md5.prototype.appendStr = function (str) {
+        var buf8 = this._buffer8, buf32 = this._buffer32, bufLen = this._bufferLength, code, i;
         for (i = 0; i < str.length; i += 1) {
             code = str.charCodeAt(i);
             if (code < 128) {
                 buf8[bufLen++] = code;
-            } else if (code < 0x800) {
+            }
+            else if (code < 0x800) {
                 buf8[bufLen++] = (code >>> 6) + 0xC0;
                 buf8[bufLen++] = code & 0x3F | 0x80;
-            } else if (code < 0xD800 || code > 0xDBFF) {
+            }
+            else if (code < 0xD800 || code > 0xDBFF) {
                 buf8[bufLen++] = (code >>> 12) + 0xE0;
                 buf8[bufLen++] = (code >>> 6 & 0x3F) | 0x80;
                 buf8[bufLen++] = (code & 0x3F) | 0x80;
-            } else {
+            }
+            else {
                 code = ((code - 0xD800) * 0x400) + (str.charCodeAt(++i) - 0xDC00) + 0x10000;
                 if (code > 0x10FFFF) {
                     throw 'Unicode standard supports code points up to U+10FFFF';
@@ -138,15 +119,10 @@ export class Md5 {
         }
         this._bufferLength = bufLen;
         return this;
-    }
-
-    appendAsciiStr(str: string) {
-        var buf8 = this._buffer8,
-            buf32 = this._buffer32,
-            bufLen = this._bufferLength,
-            i, j = 0;
-
-        for (; ;) {
+    };
+    Md5.prototype.appendAsciiStr = function (str) {
+        var buf8 = this._buffer8, buf32 = this._buffer32, bufLen = this._bufferLength, i, j = 0;
+        for (;;) {
             i = Math.min(str.length - j, 64 - bufLen);
             while (i--) {
                 buf8[bufLen++] = str.charCodeAt(j++);
@@ -160,15 +136,10 @@ export class Md5 {
         }
         this._bufferLength = bufLen;
         return this;
-    }
-
-    appendByteArray(input: any) {
-        var buf8 = this._buffer8,
-            buf32 = this._buffer32,
-            bufLen = this._bufferLength,
-            i, j = 0;
-
-        for (; ;) {
+    };
+    Md5.prototype.appendByteArray = function (input) {
+        var buf8 = this._buffer8, buf32 = this._buffer32, bufLen = this._bufferLength, i, j = 0;
+        for (;;) {
             i = Math.min(input.length - j, 64 - bufLen);
             while (i--) {
                 buf8[bufLen++] = input[j++];
@@ -182,50 +153,33 @@ export class Md5 {
         }
         this._bufferLength = bufLen;
         return this;
-    }
-
-    end(raw: boolean) {
-        var bufLen = this._bufferLength,
-            buf8 = this._buffer8,
-            buf32 = this._buffer32,
-            i = (bufLen >> 2) + 1,
-            dataBitsLen;
-
+    };
+    Md5.prototype.end = function (raw) {
+        var bufLen = this._bufferLength, buf8 = this._buffer8, buf32 = this._buffer32, i = (bufLen >> 2) + 1, dataBitsLen;
         this._dataLength += bufLen;
-
         buf8[bufLen] = 0x80;
         buf8[bufLen + 1] = buf8[bufLen + 2] = buf8[bufLen + 3] = 0;
         buf32.set(Md5.buffer32Identity.subarray(i), i);
-
         if (bufLen > 55) {
             Md5._md5cycle(this._state, buf32);
             buf32.set(Md5.buffer32Identity);
         }
-
         // Do the final computation based on the tail and length
         // Beware that the final length may not fit in 32 bits so we take care of that
         dataBitsLen = this._dataLength * 8;
         if (dataBitsLen <= 0xFFFFFFFF) {
             buf32[14] = dataBitsLen;
-        } else {
-            var matches = dataBitsLen.toString(16).match(/(.*?)(.{0,8})$/),
-                lo = parseInt(matches[2], 16),
-                hi = parseInt(matches[1], 16) || 0;
-
+        }
+        else {
+            var matches = dataBitsLen.toString(16).match(/(.*?)(.{0,8})$/), lo = parseInt(matches[2], 16), hi = parseInt(matches[1], 16) || 0;
             buf32[14] = lo;
             buf32[15] = hi;
         }
-
         Md5._md5cycle(this._state, buf32);
-
         return raw ? this._state : Md5._hex(this._state);
-    }
-
-    private static _hex(x: any):string {
-        var hc = Md5.hexChars,
-            ho = Md5.hexOut,
-            n, offset, j, i;
-
+    };
+    Md5._hex = function (x) {
+        var hc = Md5.hexChars, ho = Md5.hexOut, n, offset, j, i;
         for (i = 0; i < 4; i += 1) {
             offset = i * 8;
             n = x[i];
@@ -237,13 +191,9 @@ export class Md5 {
             }
         }
         return ho.join('');
-    }
-
-    private static _md5cycle(x, k) {
-        var a = x[0],
-            b = x[1],
-            c = x[2],
-            d = x[3];
+    };
+    Md5._md5cycle = function (x, k) {
+        var a = x[0], b = x[1], c = x[2], d = x[3];
         // ff()
         a += (b & c | ~b & d) + k[0] - 680876936 | 0;
         a = (a << 7 | a >>> 25) + b | 0;
@@ -376,14 +326,21 @@ export class Md5 {
         c = (c << 15 | c >>> 17) + d | 0;
         b += (d ^ (c | ~a)) + k[9] - 343485551 | 0;
         b = (b << 21 | b >>> 11) + c | 0;
-
         x[0] = a + x[0] | 0;
         x[1] = b + x[1] | 0;
         x[2] = c + x[2] | 0;
         x[3] = d + x[3] | 0;
-    }
-}
-
+    };
+    Md5.stateIdentity = new Int32Array([1732584193, -271733879, -1732584194, 271733878]);
+    Md5.buffer32Identity = new Int32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    Md5.hexChars = '0123456789abcdef';
+    Md5.hexOut = [];
+    // Permanent instance is to use for one-call hashing
+    Md5.onePassHasher = new Md5();
+    return Md5;
+})();
+exports.Md5 = Md5;
 if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
     console.error('Md5 self test failed.');
 }
+//# sourceMappingURL=md5.js.map
