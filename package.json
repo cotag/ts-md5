@@ -1,0 +1,38 @@
+{
+  "bugs": {
+    "url": "https://github.com/cotag/ts-md5/issues"
+  },
+  "contributors": [],
+  "devDependencies": {
+    "jasmine-core": "latest",
+    "karma": "latest",
+    "karma-chrome-launcher": "latest",
+    "karma-jasmine": "latest",
+    "karma-webpack": "latest",
+    "ts-loader": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {},
+  "description": "TypeScript MD5 implementation",
+  "directories": {},
+  "homepage": "https://github.com/cotag/ts-md5",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "Stephen von Takach",
+      "email": "steve@cotag.me"
+    }
+  ],
+  "name": "ts-md5",
+  "optionalDependencies": {},
+  "peerDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cotag/ts-md5.git"
+  },
+  "scripts": {
+    "build": "node node_modules/typescript/bin/tsc",
+    "test": "node node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "version": "1.0.0"
+}
