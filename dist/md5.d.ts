@@ -16,8 +16,15 @@ export declare class Md5 {
     start(): this;
     appendStr(str: string): this;
     appendAsciiStr(str: string): this;
-    appendByteArray(input: any): this;
-    end(raw: boolean): Int32Array | string;
+    appendByteArray(input: Uint8Array): this;
+    getState(): {
+        buffer: any;
+        buflen: number;
+        length: number;
+        state: number[];
+    };
+    setState(state: any): void;
+    end(raw?: boolean): Int32Array | string;
     private static _hex(x);
     private static _md5cycle(x, k);
 }

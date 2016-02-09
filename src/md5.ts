@@ -162,7 +162,7 @@ export class Md5 {
         return this;
     }
 
-    appendByteArray(input: any) {
+    appendByteArray(input: Uint8Array) {
         var buf8 = this._buffer8,
             buf32 = this._buffer32,
             bufLen = this._bufferLength,
@@ -184,7 +184,37 @@ export class Md5 {
         return this;
     }
 
-    end(raw: boolean) {
+    getState() {
+        var self = this,
+            s = self._state;
+
+        return {
+            buffer: String.fromCharCode.apply(null, self._buffer8),
+            buflen: self._bufferLength,
+            length: self._dataLength,
+            state: [s[0], s[1], s[2], s[3]]
+        };
+    }
+
+    setState(state: any) {
+        var buf = state.buffer,
+            x = state.state,
+            s = this._state,
+            i;
+
+        this._dataLength = state.length;
+        this._bufferLength = state.buflen;
+        s[0] = x[0];
+        s[1] = x[1];
+        s[2] = x[2];
+        s[3] = x[3];
+
+        for (i = 0; i < buf.length; i += 1) {
+            this._buffer8[i] = buf.charCodeAt(i);
+        }
+    }
+
+    end(raw: boolean = false) {
         var bufLen = this._bufferLength,
             buf8 = this._buffer8,
             buf32 = this._buffer32,
