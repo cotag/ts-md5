@@ -31,8 +31,8 @@
     "url": "git+https://github.com/cotag/ts-md5.git"
   },
   "scripts": {
-    "build": "node node_modules/typescript/bin/tsc",
+    "build": "node node_modules/typescript/bin/tsc --p ./src && cat ./dist/md5_file_hasher.js ./src/worker.js >> ./dist/md5.js && grep -v exports. ./dist/md5.js > ./dist/md5_worker.js && node node_modules/typescript/bin/tsc",
     "test": "node node_modules/karma/bin/karma start karma.conf.js"
   },
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

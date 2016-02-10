@@ -6,6 +6,15 @@ A MD5 implementation for TypeScript
 * Supports incremental hashing
 * Works with Files and Blobs
 
+This library also includes tools for:
+
+* Hashing a file or blob
+* A webworker for performing hashing
+* A webworker handler for requesting files or blobs to be hashed
+     * promise based
+     * files or blobs are queued for processing on the webworker
+
+
 Based on work by
 
 * Joseph Myers: http://www.myersdaily.org/joseph/javascript/md5-text.html
