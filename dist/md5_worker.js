@@ -301,7 +301,6 @@ var Md5 = (function () {
 if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
     console.error('Md5 self test failed.');
 }
-var md5_1 = require('./md5');
 var Md5FileHasher = (function () {
     function Md5FileHasher(_callback, _replaceReader, _async, _partSize) {
         if (_replaceReader === void 0) { _replaceReader = false; }
@@ -318,7 +317,7 @@ var Md5FileHasher = (function () {
         self._blob = blob;
         self._length = Math.ceil(blob.size / self._partSize);
         self._part = 0;
-        self._md5 = new md5_1.Md5();
+        self._md5 = new Md5();
         self._processPart();
     };
     Md5FileHasher.prototype._fail = function () {
@@ -409,7 +408,10 @@ var Md5FileHasher = (function () {
 
     // Hook-up worker input
     global.onmessage = function(e) {
-        var hasher = new Md5FileHasher(global.postMessage, newReader, async);
+        var hasher = new Md5FileHasher(function (data) {
+            // This prevents an illegal invocation error
+            global.postMessage(data);
+        }, newReader, async);
         hasher.hash(e.data);
     };
 

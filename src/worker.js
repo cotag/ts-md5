@@ -20,7 +20,10 @@
 
     // Hook-up worker input
     global.onmessage = function(e) {
-        var hasher = new Md5FileHasher(global.postMessage, newReader, async);
+        var hasher = new Md5FileHasher(function (data) {
+            // This prevents an illegal invocation error
+            global.postMessage(data);
+        }, newReader, async);
         hasher.hash(e.data);
     };
 
