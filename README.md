@@ -24,6 +24,8 @@ Based on work by
 
 ## Usage
 
+### Basic Hashing
+
 1. Import the class
      * `import {Md5} from 'ts-md5/dist/md5';`
 2. Hash some things
@@ -46,6 +48,23 @@ md5.appendStr('somestring')
 
 // Generate the MD5 hex string
 md5.end();
+
+```
+
+
+### Hashing a File
+
+NOTE:: You have to make sure `ts-md5/dist/md5_worker.js` is made available in your build so it can be accessed directly by a browser
+It should always remain as a seperate file.
+
+```typescript
+
+import {ParallelHasher} from 'ts-md5/dist/parallel_hasher';
+
+var hasher = new ParallelHasher('/path/to/ts-md5/dist/md5_worker.js');
+hasher.hash(fileBlob).then(function(result) {
+   console.log('md5 of fileBlob is', result);
+});
 
 ```
 
