@@ -1,17 +1,13 @@
-/// <reference path=".references.ts" />
 var md5_1 = require('./md5');
 // Hashes any blob
 var Md5FileHasher = (function () {
     function Md5FileHasher(_callback, // Callback to return the result
-        _replaceReader, // Some versions of Opera have a bug where the file reader needs replacing
         _async, // Async version is not always available in a web worker
         _partSize // 1mb
         ) {
-        if (_replaceReader === void 0) { _replaceReader = false; }
         if (_async === void 0) { _async = true; }
         if (_partSize === void 0) { _partSize = 1048576; }
         this._callback = _callback;
-        this._replaceReader = _replaceReader;
         this._async = _async;
         this._partSize = _partSize;
         this._configureReader();
@@ -40,9 +36,6 @@ var Md5FileHasher = (function () {
             });
         }
         else {
-            if (self._replaceReader) {
-                self._configureReader();
-            }
             self._processPart();
         }
     };

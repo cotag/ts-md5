@@ -2,10 +2,9 @@ var ParallelHasher = (function () {
     function ParallelHasher(workerUri) {
         this._queue = [];
         this._ready = true;
-        this._window = window;
         var self = this;
-        if (self._window.Worker) {
-            self._hashWorker = new self._window.Worker(workerUri);
+        if (Worker) {
+            self._hashWorker = new Worker(workerUri);
             self._hashWorker.onmessage = self._recievedMessage.bind(self);
             self._hashWorker.onerror = function (err) {
                 self._ready = false;

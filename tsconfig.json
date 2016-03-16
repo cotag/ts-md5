@@ -11,6 +11,7 @@
   },
   "files": [
     "src/md5_file_hasher",
-    "src/parallel_hasher"
+    "src/parallel_hasher",
+    "node_modules/typescript/lib/lib.webworker.d.ts"
   ]
 }

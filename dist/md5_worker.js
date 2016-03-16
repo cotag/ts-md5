@@ -298,16 +298,11 @@ var Md5 = (function () {
     Md5.onePassHasher = new Md5();
     return Md5;
 })();
-if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
-    console.error('Md5 self test failed.');
-}
 var Md5FileHasher = (function () {
-    function Md5FileHasher(_callback, _replaceReader, _async, _partSize) {
-        if (_replaceReader === void 0) { _replaceReader = false; }
+    function Md5FileHasher(_callback, _async, _partSize) {
         if (_async === void 0) { _async = true; }
         if (_partSize === void 0) { _partSize = 1048576; }
         this._callback = _callback;
-        this._replaceReader = _replaceReader;
         this._async = _async;
         this._partSize = _partSize;
         this._configureReader();
@@ -336,9 +331,6 @@ var Md5FileHasher = (function () {
             });
         }
         else {
-            if (self._replaceReader) {
-                self._configureReader();
-            }
             self._processPart();
         }
     };
@@ -388,18 +380,8 @@ var Md5FileHasher = (function () {
 })();
 
 (function(global) {
-    var async = true,
-
-        // Opera can only use a reader once.
-        // Possibly resolved however does not hurt to leave this here
-        // I couldn't find a better way to detect this
-        newReader = !!navigator.userAgent.toLowerCase().match(/opera/);
-
     // Older versions of Firefox do not have FileReader in webworkers
-    // Opera thinks it has FileReader, however it doesn't
-    if (!global.FileReader || newReader) {
-        async = false;
-    }
+    var async = !!global.FileReader,
 
     // Just in case this is prefixed
     if (!Blob.prototype.slice) {
@@ -411,8 +393,8 @@ var Md5FileHasher = (function () {
         var hasher = new Md5FileHasher(function (data) {
             // This prevents an illegal invocation error
             global.postMessage(data);
-        }, newReader, async);
+        }, async);
+
         hasher.hash(e.data);
     };
-
 })(this);

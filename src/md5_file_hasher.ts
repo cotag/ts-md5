@@ -1,4 +1,3 @@
-/// <reference path=".references.ts" />
 import {Md5} from './md5';
 
 
@@ -14,7 +13,6 @@ export class Md5FileHasher {
 
     constructor(
         private _callback: any,                     // Callback to return the result
-        private _replaceReader: boolean = false,    // Some versions of Opera have a bug where the file reader needs replacing
         private _async: boolean = true,             // Async version is not always available in a web worker
         private _partSize: number = 1048576         // 1mb
     ) {
@@ -50,9 +48,6 @@ export class Md5FileHasher {
                 result: self._md5.end()
             });
         } else {
-            if (self._replaceReader) {
-                self._configureReader();
-            }
             self._processPart();
         }
     }

@@ -34,7 +34,7 @@ describe('hashing blobs', () => {
             expect(evt.success).toEqual(true);
             expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
             done();
-        }, false, true, 16);
+        }, true, 16);
         hasher.hash(new Blob([blob]));
     });
 
@@ -50,23 +50,7 @@ describe('hashing blobs', () => {
             expect(evt.success).toEqual(true);
             expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
             done();
-        }, false, true, 17);
-        hasher.hash(new Blob([blob]));
-    });
-
-    it('should work when replacing the file reader every time', (done) => {
-        var blob = new Uint8Array(largeBlob.length),
-            i;
-
-        for (i = 0; i < largeBlob.length; i += 1) {
-            blob[i] = largeBlob.charCodeAt(i);
-        }
-
-        hasher = new Md5FileHasher((evt) => {
-            expect(evt.success).toEqual(true);
-            expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
-            done();
-        }, true, true, 17);
+        }, true, 17);
         hasher.hash(new Blob([blob]));
     });
 });

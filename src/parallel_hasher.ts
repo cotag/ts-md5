@@ -5,14 +5,13 @@ export class ParallelHasher {
     private _processing: { blob: any, resolve: any, reject: any };
 
     private _ready: boolean = true;
-    private _window = (<any>window);
 
 
     constructor(workerUri: string) {
         var self = this;
 
-        if (self._window.Worker) {
-            self._hashWorker = new self._window.Worker(workerUri);
+        if (Worker) {
+            self._hashWorker = new Worker(workerUri);
             self._hashWorker.onmessage = self._recievedMessage.bind(self);
             self._hashWorker.onerror = function (err) {
                 self._ready = false;
