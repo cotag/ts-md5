@@ -381,7 +381,7 @@ var Md5FileHasher = (function () {
 
 (function(global) {
     // Older versions of Firefox do not have FileReader in webworkers
-    var async = !!global.FileReader,
+    var async = !!global.FileReader;
 
     // Just in case this is prefixed
     if (!Blob.prototype.slice) {
