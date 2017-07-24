@@ -6,8 +6,8 @@
     "removeComments": true
   },
   "files": [
-    "./md5",
-    "./md5_file_hasher",
+    "./md5.ts",
+    "./md5_file_hasher.ts",
     "../node_modules/typescript/lib/lib.webworker.d.ts"
   ]
 }

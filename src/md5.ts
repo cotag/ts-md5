@@ -55,7 +55,7 @@ export class Md5 {
     private static stateIdentity = new Int32Array([1732584193, -271733879, -1732584194, 271733878]);
     private static buffer32Identity = new Int32Array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     private static hexChars = '0123456789abcdef';
-    private static hexOut = [];
+    private static hexOut: string[] = new Array();
 
     // Permanent instance is to use for one-call hashing
     private static onePassHasher = new Md5();
@@ -238,9 +238,13 @@ export class Md5 {
         if (dataBitsLen <= 0xFFFFFFFF) {
             buf32[14] = dataBitsLen;
         } else {
-            var matches = dataBitsLen.toString(16).match(/(.*?)(.{0,8})$/),
-                lo = parseInt(matches[2], 16),
-                hi = parseInt(matches[1], 16) || 0;
+            var matches = dataBitsLen.toString(16).match(/(.*?)(.{0,8})$/);
+            if(matches === null){
+                return
+            }
+
+            const lo = parseInt(matches[2], 16);
+            const hi = parseInt(matches[1], 16) || 0;
 
             buf32[14] = lo;
             buf32[15] = hi;
@@ -251,7 +255,7 @@ export class Md5 {
         return raw ? this._state : Md5._hex(this._state);
     }
 
-    private static _hex(x: any):string {
+    private static _hex(x: any): string {
         var hc = Md5.hexChars,
             ho = Md5.hexOut,
             n, offset, j, i;
@@ -269,7 +273,7 @@ export class Md5 {
         return ho.join('');
     }
 
-    private static _md5cycle(x, k) {
+    private static _md5cycle(x:Int32Array|Uint32Array, k:Int32Array|Uint32Array) {
         var a = x[0],
             b = x[1],
             c = x[2],
