@@ -1,12 +1,11 @@
-/// <reference path="../typings/main.d.ts" />
 import {Md5FileHasher} from './md5_file_hasher';
 
 describe('hashing blobs', () => {
-    var hasher: Md5FileHasher,
+    let hasher: Md5FileHasher,
         largeBlob = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a765d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76';
 
     it('should hash a small blob', (done) => {
-        var str = 'hello',
+        let str = 'hello',
             blob = new Uint8Array(5),
             i;
 
@@ -23,7 +22,7 @@ describe('hashing blobs', () => {
     });
 
     it('should hash a large blob', (done) => {
-        var blob = new Uint8Array(largeBlob.length),
+        let blob = new Uint8Array(largeBlob.length),
             i;
 
         for (i = 0; i < largeBlob.length; i += 1) {
@@ -39,7 +38,7 @@ describe('hashing blobs', () => {
     });
 
     it('should hash a large blob that does not divide cleanly', (done) => {
-        var blob = new Uint8Array(largeBlob.length),
+        let blob = new Uint8Array(largeBlob.length),
             i;
 
         for (i = 0; i < largeBlob.length; i += 1) {

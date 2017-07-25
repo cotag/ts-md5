@@ -1,17 +1,34 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "declaration": true,
-    "outDir": "./dist"
-  },
-  "files": [
-    "src/md5_file_hasher",
-    "src/parallel_hasher",
-    "node_modules/typescript/lib/lib.webworker.d.ts"
-  ]
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "declaration": true,
+        "importHelpers": true,
+        "strictNullChecks": false,
+        "outDir": "./dist",
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": [
+            "jasmine",
+            "node"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "files": [
+        "./src/md5_file_hasher.ts",
+        "./src/parallel_hasher.ts"
+    ]
 }

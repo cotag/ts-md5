@@ -1,10 +1,11 @@
-var md5_1 = require('./md5');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var md5_1 = require("./md5");
 // Hashes any blob
 var Md5FileHasher = (function () {
     function Md5FileHasher(_callback, // Callback to return the result
         _async, // Async version is not always available in a web worker
-        _partSize // 1mb
-        ) {
+        _partSize) {
         if (_async === void 0) { _async = true; }
         if (_partSize === void 0) { _partSize = 1048576; }
         this._callback = _callback;
@@ -40,12 +41,15 @@ var Md5FileHasher = (function () {
         }
     };
     Md5FileHasher.prototype._processPart = function () {
-        var self = this, endbyte = 0, current_part;
+        var self = this;
+        var endbyte = 0;
+        var current_part;
         self._part += 1;
         if (self._blob.size > self._partSize) {
             endbyte = self._part * self._partSize;
-            if (endbyte > self._blob.size)
+            if (endbyte > self._blob.size) {
                 endbyte = self._blob.size;
+            }
             current_part = self._blob.slice((self._part - 1) * self._partSize, endbyte);
         }
         else {
@@ -60,7 +64,7 @@ var Md5FileHasher = (function () {
                     self._hashData({
                         target: {
                             result: self._reader.readAsArrayBuffer(current_part)
-                        }
+                        },
                     });
                 }
                 catch (e) {
@@ -82,6 +86,6 @@ var Md5FileHasher = (function () {
         }
     };
     return Md5FileHasher;
-})();
+}());
 exports.Md5FileHasher = Md5FileHasher;
 //# sourceMappingURL=md5_file_hasher.js.map

@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var ParallelHasher = (function () {
     function ParallelHasher(workerUri) {
         this._queue = [];
@@ -17,12 +19,13 @@ var ParallelHasher = (function () {
         }
     }
     ParallelHasher.prototype.hash = function (blob) {
-        var self = this, promise;
+        var self = this;
+        var promise;
         promise = new Promise(function (resolve, reject) {
             self._queue.push({
                 blob: blob,
                 resolve: resolve,
-                reject: reject
+                reject: reject,
             });
             self._processNext();
         });
@@ -52,6 +55,6 @@ var ParallelHasher = (function () {
         this._processNext();
     };
     return ParallelHasher;
-})();
+}());
 exports.ParallelHasher = ParallelHasher;
 //# sourceMappingURL=parallel_hasher.js.map

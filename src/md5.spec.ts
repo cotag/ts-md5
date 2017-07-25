@@ -1,11 +1,10 @@
-/// <reference path="../typings/main.d.ts" />
 import {Md5} from './md5';
 
 
 describe('hashing things', () => {
-    var md5: Md5,
+    let md5: Md5,
         stringToArray = function(str: string) {
-            var length = str.length,
+            let length = str.length,
                 buff = new ArrayBuffer(length),
                 arr = new Uint8Array(buff),
                 i;
@@ -16,7 +15,7 @@ describe('hashing things', () => {
 
             return arr;
         };
-    
+
     beforeEach(() => {
         md5 = new Md5();
     });
@@ -27,7 +26,7 @@ describe('hashing things', () => {
     });
 
     it('should hash a 64 byte string', () => {
-        var str = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592',
+        let str = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592',
             expectedResult = 'e0b153045b08d59d4e18a98ab823ac42',
             arr = stringToArray(str);
 
@@ -39,7 +38,7 @@ describe('hashing things', () => {
     });
 
     it('should hash a 128 byte string', () => {
-        var str = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592',
+        let str = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592',
             expectedResult = 'b12bc24f5507eba4ee27092f70148415',
             arr = stringToArray(str);
 
@@ -51,7 +50,7 @@ describe('hashing things', () => {
     });
 
     it('should hash a 160 byte string', () => {
-        var str = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a765d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76',
+        let str = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a765d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76',
             expectedResult = '66a1e6b119bf30ade63378f770e52549',
             arr = stringToArray(str);
 
@@ -88,7 +87,7 @@ describe('hashing things', () => {
     });
 
     it('should be resumable', () => {
-        var result,
+        let result,
             state;
 
         md5.appendStr('5d41402abc4b2a421456');
@@ -123,7 +122,7 @@ describe('hashing things', () => {
     });
 
     it('can handle UTF8 strings', () => {
-        var str = 'räksmörgås',
+        let str = 'räksmörgås',
             arr = stringToArray(str);
 
         expect(

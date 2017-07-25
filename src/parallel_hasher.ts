@@ -6,14 +6,13 @@ export class ParallelHasher {
 
     private _ready: boolean = true;
 
-
     constructor(workerUri: string) {
-        var self = this;
+        const self = this;
 
         if (Worker) {
             self._hashWorker = new Worker(workerUri);
             self._hashWorker.onmessage = self._recievedMessage.bind(self);
-            self._hashWorker.onerror = function (err) {
+            self._hashWorker.onerror = (err) => {
                 self._ready = false;
                 console.error('Hash worker failure', err);
             };
@@ -24,15 +23,15 @@ export class ParallelHasher {
     }
 
 
-    hash(blob: any) {
-        var self = this,
-            promise;
+    public hash(blob: any) {
+        const self = this;
+        let promise;
 
         promise = new Promise((resolve, reject) => {
             self._queue.push({
-                blob: blob,
-                resolve: resolve,
-                reject: reject
+                blob,
+                resolve,
+                reject,
             });
 
             self._processNext();
@@ -41,11 +40,10 @@ export class ParallelHasher {
         return promise;
     }
 
-    terminate() {
+    public terminate() {
         this._ready = false;
         this._hashWorker.terminate();
     }
-
 
     // Processes the next item in the queue
     private _processNext() {
@@ -57,7 +55,7 @@ export class ParallelHasher {
 
     // Hash result is returned from the worker
     private _recievedMessage(evt) {
-        var data = evt.data;
+        const data = evt.data;
 
         if (data.success) {
             this._processing.resolve(data.result);

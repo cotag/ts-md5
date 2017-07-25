@@ -1,5 +1,6 @@
 import {Md5} from './md5';
 
+declare let FileReaderSync: any;
 
 // Hashes any blob
 export class Md5FileHasher {
@@ -14,14 +15,14 @@ export class Md5FileHasher {
     constructor(
         private _callback: any,                     // Callback to return the result
         private _async: boolean = true,             // Async version is not always available in a web worker
-        private _partSize: number = 1048576         // 1mb
+        private _partSize: number = 1048576,         // 1mb
     ) {
         this._configureReader();
     }
 
 
-    hash(blob) {
-        var self = this;
+    public hash(blob) {
+        const self = this;
 
         self._blob = blob;
         self._length = Math.ceil(blob.size / self._partSize);
@@ -39,7 +40,7 @@ export class Md5FileHasher {
     }
 
     private _hashData(e) {
-        var self = this;
+        let self = this;
 
         self._md5.appendByteArray(new Uint8Array(e.target.result));
         if (self._part * self._partSize >= self._blob.size) {
@@ -53,31 +54,31 @@ export class Md5FileHasher {
     }
 
     private _processPart() {
-        var self = this,
-            endbyte = 0,
-            current_part;
+        const self = this;
+        let endbyte = 0;
+        let current_part;
 
         self._part += 1;
 
         if (self._blob.size > self._partSize) {        // If blob bigger then part_size we will slice it up
             endbyte = self._part * self._partSize;
-            if (endbyte > self._blob.size)
+            if (endbyte > self._blob.size) {
                 endbyte = self._blob.size;
-                
+            }
             current_part = self._blob.slice((self._part - 1) * self._partSize, endbyte);
         } else {
             current_part = self._blob;
         }
-        
+
         if (self._async) {
             self._reader.readAsArrayBuffer(current_part);
         } else {
-            setTimeout(function() {
+            setTimeout(() => {
                 try {
                     self._hashData({
                         target: {
                             result: self._reader.readAsArrayBuffer(current_part)
-                        }
+                        },
                     });
                 } catch (e) {
                     self._fail();
@@ -87,7 +88,7 @@ export class Md5FileHasher {
     }
 
     private _configureReader() {
-        var self = this;
+        const self = this;
 
         if (self._async) {
             self._reader = new FileReader();

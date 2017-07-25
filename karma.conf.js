@@ -16,7 +16,7 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'src/**/*.spec.ts'
+            './src/**/*.spec.ts'
         ],
 
 
@@ -37,13 +37,20 @@ module.exports = function(config) {
 
             // webpack configuration
             resolve: {
-                root: './src',
-                extensions: ['', '.ts', '.js'],
-                modulesDirectories: ['node_modules']
+                extensions: ['.ts', '.js'],
+                modules: ['src', 'node_modules']
             },
             module: {
-                loaders: [
-                    {test: /\.ts$/, loader: 'ts?configFileName=tsconfig.tests.json'}
+                rules: [
+                    {
+                        test: /\.ts$/,
+                        use: {
+                            loader: 'ts-loader',
+                            options: {
+                                configFileName: 'tsconfig.tests.json'
+                            }
+                        }
+                    }
                 ]
             }
         },
@@ -77,7 +84,7 @@ module.exports = function(config) {
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
+        logLevel: config.LOG_DEBUG,
 
 
         // enable / disable watching file and executing tests whenever any file changes
@@ -95,6 +102,7 @@ module.exports = function(config) {
 
         // Concurrency level
         // how many browser should be started simultanous
-        concurrency: Infinity
+        concurrency: Infinity,
+        mime: { 'text/x-typescript': ['ts','tsx'] },
     })
 };
