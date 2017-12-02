@@ -21,6 +21,7 @@
   "directories": {},
   "homepage": "https://github.com/cotag/ts-md5",
   "license": "MIT",
+  "main": "dist/md5.js",
   "maintainers": [
     {
       "name": "Stephen von Takach",
