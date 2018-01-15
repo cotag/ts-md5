@@ -39,5 +39,7 @@
     "build": "node node_modules/typescript/bin/tsc --p . && cat ./dist/md5_file_hasher.js ./src/worker.js >> ./dist/md5.js && grep -v exports. ./dist/md5.js > ./dist/md5_worker.js && node node_modules/typescript/bin/tsc",
     "test": "node node_modules/karma/bin/karma start karma.conf.js"
   },
-  "version": "1.2.0"
+  "main": "dist/md5.js",
+  "types": "dist/md5.d.ts",
+  "version": "1.2.3"
 }
