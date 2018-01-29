@@ -414,7 +414,7 @@ var Md5FileHasher = (function () {
         self._blob = blob;
         self._length = Math.ceil(blob.size / self._partSize);
         self._part = 0;
-        self._md5 = new Md5.Md5();
+        self._md5 = new Md5();
         self._processPart();
     };
     Md5FileHasher.prototype._fail = function () {
