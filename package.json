@@ -40,5 +40,5 @@
     "test": "node node_modules/karma/bin/karma start karma.conf.js"
   },
   "types": "dist/md5.d.ts",
-  "version": "1.2.4"
+  "version": "1.2.5"
 }
