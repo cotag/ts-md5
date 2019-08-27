@@ -7,10 +7,12 @@ export declare class Md5FileHasher {
     private _part;
     private _length;
     private _blob;
-    constructor(_callback: any, _async?: boolean, _partSize?: number);
+    constructor(_callback: any, // Callback to return the result
+    _async?: boolean, // Async version is not always available in a web worker
+    _partSize?: number);
     hash(blob: any): void;
-    private _fail();
-    private _hashData(e);
-    private _processPart();
-    private _configureReader();
+    private _fail;
+    private _hashData;
+    private _processPart;
+    private _configureReader;
 }

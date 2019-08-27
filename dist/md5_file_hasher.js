@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var md5_1 = require("./md5");
 // Hashes any blob
-var Md5FileHasher = (function () {
+var Md5FileHasher = /** @class */ (function () {
     function Md5FileHasher(_callback, // Callback to return the result
-        _async, // Async version is not always available in a web worker
-        _partSize) {
+    _async, // Async version is not always available in a web worker
+    _partSize) {
         if (_async === void 0) { _async = true; }
         if (_partSize === void 0) { _partSize = 1048576; }
         this._callback = _callback;
@@ -45,7 +45,7 @@ var Md5FileHasher = (function () {
         var endbyte = 0;
         var current_part;
         self._part += 1;
-        if (self._blob.size > self._partSize) {
+        if (self._blob.size > self._partSize) { // If blob bigger then part_size we will slice it up
             endbyte = self._part * self._partSize;
             if (endbyte > self._blob.size) {
                 endbyte = self._blob.size;

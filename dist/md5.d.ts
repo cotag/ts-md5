@@ -6,8 +6,8 @@ export declare class Md5 {
     private static hexChars;
     private static hexOut;
     private static onePassHasher;
-    private static _hex(x);
-    private static _md5cycle(x, k);
+    private static _hex;
+    private static _md5cycle;
     private _dataLength;
     private _bufferLength;
     private _state;

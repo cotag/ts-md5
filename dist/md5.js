@@ -52,7 +52,7 @@ THE SOFTWARE.
 
 */
 Object.defineProperty(exports, "__esModule", { value: true });
-var Md5 = (function () {
+var Md5 = /** @class */ (function () {
     function Md5() {
         this._state = new Int32Array(4);
         this._buffer = new ArrayBuffer(68);
