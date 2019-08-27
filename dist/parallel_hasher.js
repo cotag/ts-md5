@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var ParallelHasher = (function () {
-    function ParallelHasher(workerUri) {
+var ParallelHasher = /** @class */ (function () {
+    function ParallelHasher(workerUri, workerOptions) {
         this._queue = [];
         this._ready = true;
         var self = this;
         if (Worker) {
-            self._hashWorker = new Worker(workerUri);
+            self._hashWorker = new Worker(workerUri, workerOptions);
             self._hashWorker.onmessage = self._recievedMessage.bind(self);
             self._hashWorker.onerror = function (err) {
                 self._ready = false;

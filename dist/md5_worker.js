@@ -51,7 +51,7 @@ THE SOFTWARE.
 
 
 */
-var Md5 = (function () {
+var Md5 = /** @class */ (function () {
     function Md5() {
         this._state = new Int32Array(4);
         this._buffer = new ArrayBuffer(68);
@@ -397,11 +397,13 @@ var Md5 = (function () {
 if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
     console.error('Md5 self test failed.');
 }
+//# sourceMappingURL=md5.js.map"use strict";
+var md5_1 = require("./md5");
 // Hashes any blob
-var Md5FileHasher = (function () {
+var Md5FileHasher = /** @class */ (function () {
     function Md5FileHasher(_callback, // Callback to return the result
-        _async, // Async version is not always available in a web worker
-        _partSize) {
+    _async, // Async version is not always available in a web worker
+    _partSize) {
         if (_async === void 0) { _async = true; }
         if (_partSize === void 0) { _partSize = 1048576; }
         this._callback = _callback;
@@ -414,7 +416,7 @@ var Md5FileHasher = (function () {
         self._blob = blob;
         self._length = Math.ceil(blob.size / self._partSize);
         self._part = 0;
-        self._md5 = new Md5();
+        self._md5 = new md5_1.Md5();
         self._processPart();
     };
     Md5FileHasher.prototype._fail = function () {
@@ -441,7 +443,7 @@ var Md5FileHasher = (function () {
         var endbyte = 0;
         var current_part;
         self._part += 1;
-        if (self._blob.size > self._partSize) {
+        if (self._blob.size > self._partSize) { // If blob bigger then part_size we will slice it up
             endbyte = self._part * self._partSize;
             if (endbyte > self._blob.size) {
                 endbyte = self._blob.size;
@@ -483,6 +485,7 @@ var Md5FileHasher = (function () {
     };
     return Md5FileHasher;
 }());
+//# sourceMappingURL=md5_file_hasher.js.map
 (function(global) {
     // Older versions of Firefox do not have FileReader in webworkers
     var async = !!global.FileReader;
