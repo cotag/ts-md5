@@ -6,11 +6,11 @@ export class ParallelHasher {
 
     private _ready: boolean = true;
 
-    constructor(workerUri: string) {
+    constructor(workerUri: string, workerOptions?: WorkerOptions) {
         const self = this;
 
         if (Worker) {
-            self._hashWorker = new Worker(workerUri);
+            self._hashWorker = new Worker(workerUri, workerOptions);
             self._hashWorker.onmessage = self._recievedMessage.bind(self);
             self._hashWorker.onerror = (err) => {
                 self._ready = false;
