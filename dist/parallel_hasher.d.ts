@@ -3,7 +3,7 @@ export declare class ParallelHasher {
     private _hashWorker;
     private _processing;
     private _ready;
-    constructor(workerUri: string, workerOptions?: WorkerOptions);
+    constructor(workerUri: string);
     hash(blob: any): any;
     terminate(): void;
     private _processNext;
