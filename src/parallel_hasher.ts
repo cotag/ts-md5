@@ -1,6 +1,6 @@
 
 
-interface WorkerOptions {
+export interface WorkerOptions {
     credentials?: 'omit' | 'same-origin' | 'include';
     name?: string;
     type?: 'classic' | 'module';
