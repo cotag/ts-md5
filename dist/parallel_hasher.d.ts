@@ -1,3 +1,8 @@
+export interface WorkerOptions {
+    credentials?: 'omit' | 'same-origin' | 'include';
+    name?: string;
+    type?: 'classic' | 'module';
+}
 export declare class ParallelHasher {
     private _queue;
     private _hashWorker;
