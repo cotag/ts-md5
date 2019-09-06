@@ -6,6 +6,11 @@ export interface WorkerOptions {
     type?: 'classic' | 'module';
 }
 
+declare var Worker: {
+    prototype: Worker;
+    new(stringUrl: string, options: WorkerOptions): Worker;
+};
+
 export class ParallelHasher {
     private _queue = [];
     private _hashWorker;
