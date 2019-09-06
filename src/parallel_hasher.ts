@@ -1,4 +1,16 @@
 
+
+export interface WorkerOptions {
+    credentials?: 'omit' | 'same-origin' | 'include';
+    name?: string;
+    type?: 'classic' | 'module';
+}
+
+declare var Worker: {
+    prototype: Worker;
+    new(stringUrl: string, options: WorkerOptions): Worker;
+};
+
 export class ParallelHasher {
     private _queue = [];
     private _hashWorker;
