@@ -1,6 +1,8 @@
 export declare class Md5 {
-    static hashStr(str: string, raw?: boolean): string | Int32Array;
-    static hashAsciiStr(str: string, raw?: boolean): string | Int32Array;
+    static hashStr(str: string, raw?: false): string;
+    static hashStr(str: string, raw?: true): Int32Array;
+    static hashAsciiStr(str: string, raw?: false): string;
+    static hashAsciiStr(str: string, raw?: true): Int32Array;
     private static stateIdentity;
     private static buffer32Identity;
     private static hexChars;

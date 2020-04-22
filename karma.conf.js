@@ -46,9 +46,6 @@ module.exports = function(config) {
                         test: /\.ts$/,
                         use: {
                             loader: 'ts-loader',
-                            options: {
-                                configFileName: 'tsconfig.tests.json'
-                            }
                         }
                     }
                 ]

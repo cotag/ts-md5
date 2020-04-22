@@ -5,16 +5,16 @@
   "contributors": [],
   "devDependencies": {
     "@types/jasmine": "^2.5.53",
-    "@types/node": "^8.0.16",
+    "@types/node": "^8.10.60",
     "@types/webpack": "^3.0.5",
     "jasmine-core": "latest",
     "karma": "latest",
     "karma-chrome-launcher": "latest",
     "karma-jasmine": "latest",
     "karma-webpack": "latest",
-    "ts-loader": "^2.3.1",
+    "ts-loader": "latest",
     "typescript": "latest",
-    "webpack": "^3.3.0"
+    "webpack": "latest"
   },
   "dependencies": {},
   "description": "TypeScript MD5 implementation",
