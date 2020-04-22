@@ -60,7 +60,6 @@ var Md5 = /** @class */ (function () {
         this._buffer32 = new Uint32Array(this._buffer, 0, 17);
         this.start();
     }
-    // One time hashing functions
     Md5.hashStr = function (str, raw) {
         if (raw === void 0) { raw = false; }
         return this.onePassHasher
