@@ -12,9 +12,9 @@
     "karma-chrome-launcher": "latest",
     "karma-jasmine": "latest",
     "karma-webpack": "latest",
-    "ts-loader": "^2.3.1",
+    "ts-loader": "latest",
     "typescript": "latest",
-    "webpack": "^3.3.0"
+    "webpack": "latest"
   },
   "dependencies": {},
   "description": "TypeScript MD5 implementation",
