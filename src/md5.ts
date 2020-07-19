@@ -55,7 +55,7 @@ export class Md5 {
 
     // One time hashing functions
     public static hashStr(str: string, raw?: false): string
-    public static hashStr(str: string, raw?: true): Int32Array
+    public static hashStr(str: string, raw: true): Int32Array
     public static hashStr(str: string, raw: boolean = false) {
         return this.onePassHasher
             .start()
@@ -64,7 +64,7 @@ export class Md5 {
     }
 
     public static hashAsciiStr(str: string, raw?: false): string
-    public static hashAsciiStr(str: string, raw?: true): Int32Array
+    public static hashAsciiStr(str: string, raw: true): Int32Array
     public static hashAsciiStr(str: string, raw: boolean = false) {
         return this.onePassHasher
             .start()
