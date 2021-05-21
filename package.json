@@ -16,7 +16,6 @@
     "typescript": "latest",
     "webpack": "latest"
   },
-  "dependencies": {},
   "description": "TypeScript MD5 implementation",
   "directories": {},
   "homepage": "https://github.com/cotag/ts-md5",
@@ -40,5 +39,5 @@
     "test": "node node_modules/karma/bin/karma start karma.conf.js"
   },
   "types": "dist/md5.d.ts",
-  "version": "1.2.7"
+  "version": "1.2.8"
 }
