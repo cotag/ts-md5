@@ -35,7 +35,7 @@ THE SOFTWARE.
 
 
 
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+            PUBLIC LICENSE
                     Version 2, December 2004
 
  Copyright (C) 2015 André Cruz <amdfcruz@gmail.com>
@@ -44,10 +44,10 @@ THE SOFTWARE.
  copies of this license document, and changing it is allowed as long
  as the name is changed.
 
-            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+            PUBLIC LICENSE
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
-  0. You just DO WHAT THE FUCK YOU WANT TO.
+  0. You just DO WHAT YOU WANT TO.
 
 
 */
