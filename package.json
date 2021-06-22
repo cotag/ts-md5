@@ -1,43 +1,43 @@
 {
-  "bugs": {
-    "url": "https://github.com/cotag/ts-md5/issues"
-  },
-  "contributors": [],
-  "devDependencies": {
-    "@types/jasmine": "^2.5.53",
-    "@types/node": "^8.10.60",
-    "@types/webpack": "^3.0.5",
-    "jasmine-core": "latest",
-    "karma": "latest",
-    "karma-chrome-launcher": "latest",
-    "karma-jasmine": "latest",
-    "karma-webpack": "latest",
-    "ts-loader": "latest",
-    "typescript": "latest",
-    "webpack": "latest"
-  },
-  "description": "TypeScript MD5 implementation",
-  "directories": {},
-  "homepage": "https://github.com/cotag/ts-md5",
-  "license": "MIT",
-  "main": "dist/md5.js",
-  "maintainers": [
-    {
-      "name": "Stephen von Takach",
-      "email": "steve@cotag.me"
-    }
-  ],
-  "name": "ts-md5",
-  "optionalDependencies": {},
-  "peerDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cotag/ts-md5.git"
-  },
-  "scripts": {
-    "build": "node node_modules/typescript/bin/tsc --p . && cat ./dist/md5_file_hasher.js ./src/worker.js >> ./dist/md5.js && grep -v exports. ./dist/md5.js > ./dist/md5_worker.js && node node_modules/typescript/bin/tsc",
-    "test": "node node_modules/karma/bin/karma start karma.conf.js"
-  },
-  "types": "dist/md5.d.ts",
-  "version": "1.2.8"
+    "bugs": {
+        "url": "https://github.com/cotag/ts-md5/issues"
+    },
+    "contributors": [],
+    "devDependencies": {
+        "@types/jasmine": "^2.5.53",
+        "@types/node": "^8.10.60",
+        "@types/webpack": "^3.0.5",
+        "jasmine-core": "latest",
+        "karma": "latest",
+        "karma-chrome-launcher": "latest",
+        "karma-jasmine": "latest",
+        "karma-webpack": "latest",
+        "ts-loader": "latest",
+        "typescript": "latest",
+        "webpack": "latest"
+    },
+    "description": "TypeScript MD5 implementation",
+    "directories": {},
+    "homepage": "https://github.com/cotag/ts-md5",
+    "license": "MIT",
+    "main": "dist/md5.js",
+    "maintainers": [
+        {
+            "name": "Stephen von Takach",
+            "email": "steve@cotag.me"
+        }
+    ],
+    "name": "ts-md5",
+    "optionalDependencies": {},
+    "peerDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/cotag/ts-md5.git"
+    },
+    "scripts": {
+        "build": "node node_modules/typescript/bin/tsc --p . && cat ./dist/md5_file_hasher.js ./src/worker.js >> ./dist/md5.js && grep -v exports. ./dist/md5.js > ./dist/md5_worker.js && node node_modules/typescript/bin/tsc",
+        "test": "node node_modules/karma/bin/karma start karma.conf.js"
+    },
+    "types": "dist/md5.d.ts",
+    "version": "1.2.9"
 }
