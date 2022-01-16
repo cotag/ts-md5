@@ -80,7 +80,7 @@ export class Md5 {
     // Permanent instance is to use for one-call hashing
     private static onePassHasher = new Md5();
 
-    private static _hex(x: any): string {
+    private static _hex(x: Int32Array): string {
         const hc = Md5.hexChars;
         const ho = Md5.hexOut;
         let n;
