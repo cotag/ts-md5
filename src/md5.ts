@@ -246,7 +246,7 @@ export class Md5 {
     }
 
     private _dataLength = 0;
-    private _bufferLength: number;
+    private _bufferLength = 0;
 
     private _state: Int32Array = new Int32Array(4);
     private _buffer: ArrayBuffer = new ArrayBuffer(68);
