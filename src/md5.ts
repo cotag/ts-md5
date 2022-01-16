@@ -389,9 +389,9 @@ export class Md5 {
         const buf8 = this._buffer8;
         const buf32 = this._buffer32;
         const i = (bufLen >> 2) + 1;
-        let dataBitsLen;
 
         this._dataLength += bufLen;
+        const dataBitsLen = this._dataLength * 8
 
         buf8[bufLen] = 0x80;
         buf8[bufLen + 1] = buf8[bufLen + 2] = buf8[bufLen + 3] = 0;
@@ -404,7 +404,6 @@ export class Md5 {
 
         // Do the final computation based on the tail and length
         // Beware that the final length may not fit in 32 bits so we take care of that
-        dataBitsLen = this._dataLength * 8;
         if (dataBitsLen <= 0xFFFFFFFF) {
             buf32[14] = dataBitsLen;
         } else {
