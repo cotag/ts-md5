@@ -245,7 +245,7 @@ export class Md5 {
         x[3] = d + x[3] | 0;
     }
 
-    private _dataLength: number;
+    private _dataLength = 0;
     private _bufferLength: number;
 
     private _state: Int32Array = new Int32Array(4);
