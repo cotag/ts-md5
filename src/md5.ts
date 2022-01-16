@@ -366,7 +366,7 @@ export class Md5 {
         };
     }
 
-    public setState(state: any) {
+    public setState(state: ReturnType<typeof this.getState>) {
         const buf = state.buffer;
         const x = state.state;
         const s = this._state;
