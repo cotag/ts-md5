@@ -355,13 +355,12 @@ export class Md5 {
     }
 
     public getState() {
-        const self = this;
-        const s = self._state;
+        const s = this._state;
 
         return {
-            buffer: String.fromCharCode.apply(null, self._buffer8),
-            buflen: self._bufferLength,
-            length: self._dataLength,
+            buffer: String.fromCharCode.apply(null, this._buffer8),
+            buflen: this._bufferLength,
+            length: this._dataLength,
             state: [s[0], s[1], s[2], s[3]]
         };
     }
