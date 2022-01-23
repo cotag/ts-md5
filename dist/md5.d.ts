@@ -1,3 +1,9 @@
+interface HasherState {
+    buffer: string;
+    buflen: number;
+    length: number;
+    state: number[];
+}
 export declare class Md5 {
     static hashStr(str: string, raw?: false): string;
     static hashStr(str: string, raw: true): Int32Array;
@@ -21,12 +27,8 @@ export declare class Md5 {
     appendStr(str: string): this;
     appendAsciiStr(str: string): this;
     appendByteArray(input: Uint8Array): this;
-    getState(): {
-        buffer: any;
-        buflen: number;
-        length: number;
-        state: number[];
-    };
-    setState(state: any): void;
+    getState(): HasherState;
+    setState(state: HasherState): void;
     end(raw?: boolean): string | Int32Array;
 }
+export {};

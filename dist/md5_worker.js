@@ -35,7 +35,7 @@ THE SOFTWARE.
 
 
 
-            PUBLIC LICENSE
+            DO WHAT YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
  Copyright (C) 2015 André Cruz <amdfcruz@gmail.com>
@@ -44,15 +44,18 @@ THE SOFTWARE.
  copies of this license document, and changing it is allowed as long
  as the name is changed.
 
-            PUBLIC LICENSE
+            DO WHAT YOU WANT TO PUBLIC LICENSE
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
   0. You just DO WHAT YOU WANT TO.
 
 
 */
+;
 var Md5 = /** @class */ (function () {
     function Md5() {
+        this._dataLength = 0;
+        this._bufferLength = 0;
         this._state = new Int32Array(4);
         this._buffer = new ArrayBuffer(68);
         this._buffer8 = new Uint8Array(this._buffer, 0, 68);
@@ -326,12 +329,11 @@ var Md5 = /** @class */ (function () {
         return this;
     };
     Md5.prototype.getState = function () {
-        var self = this;
-        var s = self._state;
+        var s = this._state;
         return {
-            buffer: String.fromCharCode.apply(null, self._buffer8),
-            buflen: self._bufferLength,
-            length: self._dataLength,
+            buffer: String.fromCharCode.apply(null, Array.from(this._buffer8)),
+            buflen: this._bufferLength,
+            length: this._dataLength,
             state: [s[0], s[1], s[2], s[3]]
         };
     };
@@ -356,8 +358,8 @@ var Md5 = /** @class */ (function () {
         var buf8 = this._buffer8;
         var buf32 = this._buffer32;
         var i = (bufLen >> 2) + 1;
-        var dataBitsLen;
         this._dataLength += bufLen;
+        var dataBitsLen = this._dataLength * 8;
         buf8[bufLen] = 0x80;
         buf8[bufLen + 1] = buf8[bufLen + 2] = buf8[bufLen + 3] = 0;
         buf32.set(Md5.buffer32Identity.subarray(i), i);
@@ -367,7 +369,6 @@ var Md5 = /** @class */ (function () {
         }
         // Do the final computation based on the tail and length
         // Beware that the final length may not fit in 32 bits so we take care of that
-        dataBitsLen = this._dataLength * 8;
         if (dataBitsLen <= 0xFFFFFFFF) {
             buf32[14] = dataBitsLen;
         }
@@ -394,10 +395,10 @@ var Md5 = /** @class */ (function () {
     return Md5;
 }());
 if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
-    console.error('Md5 self test failed.');
+    throw new Error('Md5 self test failed.');
 }
 //# sourceMappingURL=md5.js.map"use strict";
-// var md5_1 = require("./md5");
+var md5_1 = require("./md5");
 // Hashes any blob
 var Md5FileHasher = /** @class */ (function () {
     function Md5FileHasher(_callback, // Callback to return the result
@@ -415,7 +416,7 @@ var Md5FileHasher = /** @class */ (function () {
         self._blob = blob;
         self._length = Math.ceil(blob.size / self._partSize);
         self._part = 0;
-        self._md5 = new Md5();
+        self._md5 = new md5_1.Md5();
         self._processPart();
     };
     Md5FileHasher.prototype._fail = function () {

@@ -51,6 +51,14 @@ THE SOFTWARE.
 
 */
 
+
+interface HasherState {
+    buffer: string;
+    buflen: number;
+    length: number;
+    state: number[];
+};
+
 export class Md5 {
 
     // One time hashing functions
@@ -354,7 +362,7 @@ export class Md5 {
         return this;
     }
 
-    public getState() {
+    public getState(): HasherState {
         const s = this._state;
 
         return {
@@ -365,7 +373,7 @@ export class Md5 {
         };
     }
 
-    public setState(state: ReturnType<typeof this.getState>) {
+    public setState(state: HasherState) {
         const buf = state.buffer;
         const x = state.state;
         const s = this._state;
