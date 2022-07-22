@@ -397,8 +397,6 @@ var Md5 = /** @class */ (function () {
 if (Md5.hashStr('hello') !== '5d41402abc4b2a76b9719d911017c592') {
     throw new Error('Md5 self test failed.');
 }
-//# sourceMappingURL=md5.js.map"use strict";
-var md5_1 = require("./md5");
 // Hashes any blob
 var Md5FileHasher = /** @class */ (function () {
     function Md5FileHasher(_callback, // Callback to return the result
@@ -416,7 +414,7 @@ var Md5FileHasher = /** @class */ (function () {
         self._blob = blob;
         self._length = Math.ceil(blob.size / self._partSize);
         self._part = 0;
-        self._md5 = new md5_1.Md5();
+        self._md5 = new Md5();
         self._processPart();
     };
     Md5FileHasher.prototype._fail = function () {
