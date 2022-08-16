@@ -1,34 +1,25 @@
+
 {
+    "include": ["src", "types"],
+    "compileOnSave": false,
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "outDir": "./dist/esm",
         "sourceMap": true,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
         "declaration": true,
+        "rootDir": "./src",
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "module": "esnext",
+        "moduleResolution": "node",
         "importHelpers": true,
-        "strictNullChecks": false,
-        "outDir": "./dist",
-        "lib": [
-            "dom",
-            "es6"
-        ],
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "types": [
-            "jasmine",
-            "node"
-        ]
-    },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
-    "files": [
-        "./src/md5_file_hasher.ts",
-        "./src/parallel_hasher.ts"
-    ]
+        "target": "es2015",
+        "lib": ["es2018", "dom"],
+        "resolveJsonModule": true
+    }
 }

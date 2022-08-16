@@ -1,32 +1,18 @@
 {
-    "extends": "tslint:recommended",
+    "extends": ["tslint:recommended"],
     "rules": {
         "class-name": true,
-        "comment-format": [
-            true,
-            "check-space"
-        ],
-        "indent": [
-            true,
-            "spaces"
-        ],
-        "no-bitwise": false,
+        "comment-format": [true, "check-space"],
+        "indent": [true, "spaces"],
         "no-duplicate-variable": true,
         "no-eval": true,
         "no-internal-module": true,
         "no-trailing-whitespace": true,
         "no-var-keyword": true,
-        "object-literal-sort-keys": false,
-        "one-line": [
-            true,
-            "check-open-brace",
-            "check-whitespace"
-        ],
-        "quotemark": [
-            true,
-            "single"
-        ],
-        "semicolon": true,
+        "no-unused-expression": true,
+        "one-line": [true, "check-open-brace", "check-whitespace"],
+        "quotemark": [true, "single", "backtick"],
+        "semicolon": [true, "always"],
         "typedef-whitespace": [
             true,
             {
@@ -51,6 +37,12 @@
             "check-operator",
             "check-separator",
             "check-type"
-        ]
+        ],
+        "max-line-length": [true, 100],
+        "interface-name": [true, "never-prefix"],
+        "ordered-imports": {"import-sources-order": "any"},
+        "arrow-parens": false,
+        "trailing-comma": { "multiline": "never", "singleline": "never" },
+        "object-literal-sort-keys": false
     }
 }

@@ -1,43 +1,82 @@
 {
-    "bugs": {
-        "url": "https://github.com/cotag/ts-md5/issues"
-    },
-    "contributors": [],
-    "devDependencies": {
-        "@types/jasmine": "^2.5.53",
-        "@types/node": "^8.10.60",
-        "@types/webpack": "^3.0.5",
-        "jasmine-core": "latest",
-        "karma": "latest",
-        "karma-chrome-launcher": "latest",
-        "karma-jasmine": "latest",
-        "karma-webpack": "latest",
-        "ts-loader": "latest",
-        "typescript": "latest",
-        "webpack": "latest"
-    },
-    "description": "TypeScript MD5 implementation",
-    "directories": {},
-    "homepage": "https://github.com/cotag/ts-md5",
+    "version": "1.2.11",
     "license": "MIT",
-    "main": "dist/md5.js",
+    "name": "ts-md5",
     "maintainers": [
         {
             "name": "Stephen von Takach",
             "email": "steve@cotag.me"
+        },
+        {
+            "name": "Alex Sorafumo",
+            "email": "alex@place.tech"
         }
     ],
-    "name": "ts-md5",
-    "optionalDependencies": {},
-    "peerDependencies": {},
+    "description": "TypeScript MD5 implementation",
+    "homepage": "https://github.com/cotag/ts-md5",
+    "module": "dist/esm/index.js",
+    "main": "dist/cjs/index.js",
+    "typings": "dist/esm/index.d.ts",
+    "keywords": [
+        "placeos",
+        "cotag",
+        "md5",
+        "typescript"
+    ],
+    "files": [
+        "dist",
+        "src"
+    ],
+    "engines": {
+        "node": ">=10"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/cotag/ts-md5.git"
     },
-    "scripts": {
-        "build": "node node_modules/typescript/bin/tsc --p . && cat ./dist/md5_file_hasher.js ./src/worker.js >> ./dist/md5.js && grep -v exports. ./dist/md5.js > ./dist/md5_worker.js && node node_modules/typescript/bin/tsc",
-        "test": "node node_modules/karma/bin/karma start karma.conf.js"
+    "bugs": {
+        "url": "https://github.com/cotag/ts-md5/issues"
     },
-    "types": "dist/md5.d.ts",
-    "version": "1.2.11"
+    "scripts": {
+        "build": "node ./clean.js && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run build-worker",
+        "docs": "typedoc --excludePrivate --out docs src",
+        "test": "jest --coverage",
+        "test:watch": "jest --coverage --watch",
+        "test:coverage": "jest --coverage",
+        "test:ci": "jest --runInBand",
+        "lint": "tslint --project tsconfig.json",
+        "semantic-release": "semantic-release",
+        "prepare": "npm run build",
+        "build-worker": "node ./build-worker.js"
+    },
+    "jest": {
+        "transform": {
+            ".(ts|tsx)": "ts-jest"
+        },
+        "testEnvironment": "jsdom",
+        "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js"
+        ],
+        "coveragePathIgnorePatterns": [
+            "/node_modules/",
+            "/test/"
+        ],
+        "collectCoverageFrom": [
+            "src/**/*.{js,ts}"
+        ]
+    },
+    "devDependencies": {
+        "@types/jest": "^26.0.9",
+        "jest": "^26.2.2",
+        "jest-config": "^26.2.2",
+        "semantic-release": "^17.2.3",
+        "ts-jest": "^26.1.4",
+        "tslib": "^2.0.1",
+        "tslint": "^6.1.3",
+        "typedoc": "^0.22.11",
+        "typescript": "^4.5.5"
+    }
 }

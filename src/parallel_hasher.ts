@@ -1,5 +1,3 @@
-
-
 export interface WorkerOptions {
     credentials?: 'omit' | 'same-origin' | 'include';
     name?: string;
@@ -8,13 +6,19 @@ export interface WorkerOptions {
 
 declare var Worker: {
     prototype: Worker;
-    new(stringUrl: string, options: WorkerOptions): Worker;
+    new (stringUrl: string, options?: WorkerOptions): Worker;
+};
+
+interface HashingRequest {
+    blob: any;
+    resolve: (...d: any) => void;
+    reject: (...d: any) => void;
 };
 
 export class ParallelHasher {
-    private _queue = [];
-    private _hashWorker;
-    private _processing: { blob: any, resolve: any, reject: any };
+    private _queue: HashingRequest[] = [];
+    private _hashWorker: any;
+    private _processing?: HashingRequest;
 
     private _ready: boolean = true;
 
@@ -24,7 +28,7 @@ export class ParallelHasher {
         if (Worker) {
             self._hashWorker = new Worker(workerUri, workerOptions);
             self._hashWorker.onmessage = self._recievedMessage.bind(self);
-            self._hashWorker.onerror = (err) => {
+            self._hashWorker.onerror = (err: any) => {
                 self._ready = false;
                 console.error('Hash worker failure', err);
             };
@@ -33,7 +37,6 @@ export class ParallelHasher {
             console.error('Web Workers are not supported in this browser');
         }
     }
-
 
     public hash(blob: any) {
         const self = this;
@@ -61,21 +64,21 @@ export class ParallelHasher {
     private _processNext() {
         if (this._ready && !this._processing && this._queue.length > 0) {
             this._processing = this._queue.pop();
-            this._hashWorker.postMessage(this._processing.blob);
+            this._hashWorker.postMessage(this._processing!.blob);
         }
     }
 
     // Hash result is returned from the worker
-    private _recievedMessage(evt) {
+    private _recievedMessage(evt: any) {
         const data = evt.data;
 
         if (data.success) {
-            this._processing.resolve(data.result);
+            this._processing?.resolve(data.result);
         } else {
-            this._processing.reject(data.result);
+            this._processing?.reject(data.result);
         }
 
-        this._processing = null;
+        this._processing = undefined;
         this._processNext();
     }
 }

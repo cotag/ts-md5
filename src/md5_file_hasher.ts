@@ -2,30 +2,35 @@ import {Md5} from './md5';
 
 declare let FileReaderSync: any;
 
+export interface HashingResponse {
+    success: boolean;
+    result?: string | Int32Array;
+}
+
 // Hashes any blob
 export class Md5FileHasher {
     private _reader: any;
 
-    private _md5: Md5;
-    private _part: number;
-    private _length: number;
+    private _md5!: Md5;
+    private _part!: number;
+    // private _length!: number;
     private _blob: any;
 
 
     constructor(
-        private _callback: any,                     // Callback to return the result
-        private _async: boolean = true,             // Async version is not always available in a web worker
-        private _partSize: number = 1048576,         // 1mb
+        private _callback: (r: HashingResponse) => void,    // Callback to return the result
+        private _async: boolean = true,                     // Async version is not always available in a web worker
+        private _partSize: number = 1048576,                // 1mb
     ) {
         this._configureReader();
     }
 
 
-    public hash(blob) {
+    public hash(blob: any) {
         const self = this;
 
         self._blob = blob;
-        self._length = Math.ceil(blob.size / self._partSize);
+        // self._length = Math.ceil(blob.size / self._partSize);
         self._part = 0;
         self._md5 = new Md5();
         self._processPart();
@@ -39,7 +44,7 @@ export class Md5FileHasher {
         });
     }
 
-    private _hashData(e) {
+    private _hashData(e: any) {
         let self = this;
 
         self._md5.appendByteArray(new Uint8Array(e.target.result));
@@ -56,7 +61,7 @@ export class Md5FileHasher {
     private _processPart() {
         const self = this;
         let endbyte = 0;
-        let current_part;
+        let current_part: any;
 
         self._part += 1;
 

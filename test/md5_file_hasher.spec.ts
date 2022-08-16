@@ -1,8 +1,9 @@
-import {Md5FileHasher} from './md5_file_hasher';
+import { Md5FileHasher } from '../src/md5_file_hasher';
 
 describe('hashing blobs', () => {
     let hasher: Md5FileHasher,
-        largeBlob = '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a765d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76';
+        largeBlob =
+            '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a765d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76';
 
     it('should hash a small blob', (done) => {
         let str = 'hello',
@@ -13,7 +14,7 @@ describe('hashing blobs', () => {
             blob[i] = str.charCodeAt(i);
         }
 
-        hasher = new Md5FileHasher((evt) => {
+        hasher = new Md5FileHasher((evt: any) => {
             expect(evt.success).toEqual(true);
             expect(evt.result).toEqual('5d41402abc4b2a76b9719d911017c592');
             done();
@@ -29,11 +30,15 @@ describe('hashing blobs', () => {
             blob[i] = largeBlob.charCodeAt(i);
         }
 
-        hasher = new Md5FileHasher((evt) => {
-            expect(evt.success).toEqual(true);
-            expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
-            done();
-        }, true, 16);
+        hasher = new Md5FileHasher(
+            (evt: any) => {
+                expect(evt.success).toEqual(true);
+                expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
+                done();
+            },
+            true,
+            16
+        );
         hasher.hash(new Blob([blob]));
     });
 
@@ -45,11 +50,15 @@ describe('hashing blobs', () => {
             blob[i] = largeBlob.charCodeAt(i);
         }
 
-        hasher = new Md5FileHasher((evt) => {
-            expect(evt.success).toEqual(true);
-            expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
-            done();
-        }, true, 17);
+        hasher = new Md5FileHasher(
+            (evt: any) => {
+                expect(evt.success).toEqual(true);
+                expect(evt.result).toEqual('66a1e6b119bf30ade63378f770e52549');
+                done();
+            },
+            true,
+            17
+        );
         hasher.hash(new Blob([blob]));
     });
 });
