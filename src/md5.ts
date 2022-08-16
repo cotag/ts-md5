@@ -62,7 +62,7 @@ interface HasherState {
 export class Md5 {
 
     /**
-     * Hash a UTF8 string on the spot
+     * Hash a UTF-8 string on the spot
      * @param str String to hash
      * @param raw Whether to return the value as an `Int32Array`
      */
@@ -291,7 +291,7 @@ export class Md5 {
     // #Example.3A_Fixing_charCodeAt_to_handle_non-Basic-Multilingual-Plane_characters_if_their_presence_earlier_in_the_string_is_unknown
 
     /**
-     * Append a UTF8 string to the hash buffer
+     * Append a UTF-8 string to the hash buffer
      * @param str String to append
      */
     public appendStr(str: string) {
