@@ -24,6 +24,10 @@ Based on work by
 
 ## Usage
 
+### Install
+
+Install the node module with `npm install ts-md5`
+
 ### Basic Hashing
 
 1. Import the class
