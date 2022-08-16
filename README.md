@@ -79,21 +79,6 @@ The project is written in typescript and transpiled into ES5.
 
 You can find more information here: https://github.com/Microsoft/TypeScript/wiki/tsconfig.json
 
-## Type Definitions
-
-These allow projects like jasmine to work with .ts files. This is here as a guide more than anything else.
-See: https://github.com/typings/typings
-
-1. Install typings: `npm install typings --global` (if you haven't already)
-2. Download definitions: `typings install jasmine --ambient --save`
-     * Note: ambient means we are searching in https://github.com/DefinitelyTyped/DefinitelyTyped
-3. Reference the typings using `/// <reference path="../typings/main.d.ts" />` from tests
-
-To update typings:
-
-*  From command line run: `typings install`
-
-
 ## Scripts
 
 1. Build Script: `npm run build`
