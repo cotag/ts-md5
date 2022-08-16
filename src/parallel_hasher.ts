@@ -38,6 +38,11 @@ export class ParallelHasher {
         }
     }
 
+    /**
+     * Hash a blob of data in the worker
+     * @param blob Data to hash
+     * @returns Promise of the Hashed result
+     */
     public hash(blob: any) {
         const self = this;
         let promise;
@@ -55,6 +60,7 @@ export class ParallelHasher {
         return promise;
     }
 
+    /** Terminate any existing hash requests */
     public terminate() {
         this._ready = false;
         this._hashWorker.terminate();

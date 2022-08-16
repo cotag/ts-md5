@@ -25,7 +25,10 @@ export class Md5FileHasher {
         this._configureReader();
     }
 
-
+    /**
+     * Hash a blob of data in the worker
+     * @param blob Data to hash
+     */
     public hash(blob: any) {
         const self = this;
 
