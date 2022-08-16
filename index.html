@@ -1,0 +1,110 @@
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ts-md5</title><meta name="description" content="Documentation for ts-md5"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">ts-md5</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>ts-md5</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#introduction" id="introduction" style="color: inherit; text-decoration: none;">
+  <h1>Introduction</h1>
+</a>
+<p>A MD5 implementation for TypeScript</p>
+<ul>
+<li>Can handle Unicode strings</li>
+<li>Supports incremental hashing</li>
+<li>Works with Files and Blobs</li>
+</ul>
+<p>This library also includes tools for:</p>
+<ul>
+<li>Hashing a file or blob</li>
+<li>A webworker for performing hashing</li>
+<li>A webworker handler for requesting files or blobs to be hashed<ul>
+<li>promise based</li>
+<li>files or blobs are queued for processing on the webworker</li>
+</ul>
+</li>
+</ul>
+<p>Based on work by</p>
+<ul>
+<li>Joseph Myers: <a href="http://www.myersdaily.org/joseph/javascript/md5-text.html">http://www.myersdaily.org/joseph/javascript/md5-text.html</a></li>
+<li>André Cruz: <a href="https://github.com/satazor/SparkMD5">https://github.com/satazor/SparkMD5</a></li>
+<li>Raymond Hill: <a href="https://github.com/gorhill/yamd5.js">https://github.com/gorhill/yamd5.js</a></li>
+</ul>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+
+<a href="#basic-hashing" id="basic-hashing" style="color: inherit; text-decoration: none;">
+  <h3>Basic Hashing</h3>
+</a>
+<ol>
+<li>Import the class<ul>
+<li><code>import {Md5} from &#39;ts-md5/dist/md5&#39;;</code></li>
+</ul>
+</li>
+<li>Hash some things<ul>
+<li><code>Md5.hashStr(&#39;blah blah blah&#39;)</code> =&gt; hex:string</li>
+<li><code>Md5.hashStr(&#39;blah blah blah&#39;, true)</code> =&gt; raw:Int32Array(4)</li>
+<li><code>Md5.hashAsciiStr(&#39;blah blah blah&#39;)</code> =&gt; hex:string</li>
+<li><code>Md5.hashAsciiStr(&#39;blah blah blah&#39;, true)</code> =&gt; raw:Int32Array(4)</li>
+</ul>
+</li>
+</ol>
+<p>For more complex uses:</p>
+<pre><code class="language-typescript"><br/><span class="hl-0">md5</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-3">Md5</span><span class="hl-1">();</span><br/><br/><span class="hl-4">// Append incrementally your file or other input</span><br/><span class="hl-4">// Methods are chainable</span><br/><span class="hl-0">md5</span><span class="hl-1">.</span><span class="hl-3">appendStr</span><span class="hl-1">(</span><span class="hl-5">&#39;somestring&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    .</span><span class="hl-3">appendAsciiStr</span><span class="hl-1">(</span><span class="hl-5">&#39;a different string&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    .</span><span class="hl-3">appendByteArray</span><span class="hl-1">(</span><span class="hl-0">blob</span><span class="hl-1">);</span><br/><br/><span class="hl-4">// Generate the MD5 hex string</span><br/><span class="hl-0">md5</span><span class="hl-1">.</span><span class="hl-3">end</span><span class="hl-1">();</span><br/>
+</code></pre>
+
+<a href="#hashing-a-file" id="hashing-a-file" style="color: inherit; text-decoration: none;">
+  <h3>Hashing a File</h3>
+</a>
+<p>NOTE:: You have to make sure <code>ts-md5/dist/md5_worker.js</code> is made available in your build so it can be accessed directly by a browser
+It should always remain as a seperate file.</p>
+<pre><code class="language-typescript"><br/><span class="hl-6">import</span><span class="hl-1"> {</span><span class="hl-0">ParallelHasher</span><span class="hl-1">} </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-5">&#39;ts-md5/dist/parallel_hasher&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">hasher</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-3">ParallelHasher</span><span class="hl-1">(</span><span class="hl-5">&#39;/path/to/ts-md5/dist/md5_worker.js&#39;</span><span class="hl-1">);</span><br/><span class="hl-0">hasher</span><span class="hl-1">.</span><span class="hl-3">hash</span><span class="hl-1">(</span><span class="hl-0">fileBlob</span><span class="hl-1">).</span><span class="hl-3">then</span><span class="hl-1">(</span><span class="hl-2">function</span><span class="hl-1">(</span><span class="hl-0">result</span><span class="hl-1">) {</span><br/><span class="hl-1">   </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-5">&#39;md5 of fileBlob is&#39;</span><span class="hl-1">, </span><span class="hl-0">result</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/>
+</code></pre>
+
+<a href="#building-from-src" id="building-from-src" style="color: inherit; text-decoration: none;">
+  <h2>Building from src</h2>
+</a>
+<p>The project is written in typescript and transpiled into ES5.</p>
+<ol>
+<li>Install TypeScript: <code>npm install -g typescript</code> (if you haven&#39;t already)</li>
+<li>Configure compile options in <code>tsconfig.json</code></li>
+<li>Perform build using: <code>tsc</code></li>
+</ol>
+<p>You can find more information here: <a href="https://github.com/Microsoft/TypeScript/wiki/tsconfig.json">https://github.com/Microsoft/TypeScript/wiki/tsconfig.json</a></p>
+
+<a href="#type-definitions" id="type-definitions" style="color: inherit; text-decoration: none;">
+  <h2>Type Definitions</h2>
+</a>
+<p>These allow projects like jasmine to work with .ts files. This is here as a guide more than anything else.
+See: <a href="https://github.com/typings/typings">https://github.com/typings/typings</a></p>
+<ol>
+<li>Install typings: <code>npm install typings --global</code> (if you haven&#39;t already)</li>
+<li>Download definitions: <code>typings install jasmine --ambient --save</code><ul>
+<li>Note: ambient means we are searching in <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">https://github.com/DefinitelyTyped/DefinitelyTyped</a></li>
+</ul>
+</li>
+<li>Reference the typings using <code>/// &lt;reference path=&quot;../typings/main.d.ts&quot; /&gt;</code> from tests</li>
+</ol>
+<p>To update typings:</p>
+<ul>
+<li>From command line run: <code>typings install</code></li>
+</ul>
+
+<a href="#scripts" id="scripts" style="color: inherit; text-decoration: none;">
+  <h2>Scripts</h2>
+</a>
+<ol>
+<li>Build Script: <code>npm run build</code></li>
+<li>Test Script: <code>npm run test</code></li>
+</ol>
+
+<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
+  <h2>Publishing</h2>
+</a>
+<ol>
+<li>Sign up to <a href="https://www.npmjs.com/">https://www.npmjs.com/</a></li>
+<li>Configure <code>package.json</code> <a href="https://docs.npmjs.com/files/package.json">https://docs.npmjs.com/files/package.json</a></li>
+<li>run <code>npm publish</code> <a href="https://docs.npmjs.com/cli/publish">https://docs.npmjs.com/cli/publish</a></li>
+</ol>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h1>License</h1>
+</a>
+<p>MIT</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/Md5.html" class="tsd-kind-icon">Md5</a></li><li class="tsd-kind-class"><a href="classes/Md5FileHasher.html" class="tsd-kind-icon">Md5<wbr/>File<wbr/>Hasher</a></li><li class="tsd-kind-class"><a href="classes/ParallelHasher.html" class="tsd-kind-icon">Parallel<wbr/>Hasher</a></li><li class="tsd-kind-interface"><a href="interfaces/HashingResponse.html" class="tsd-kind-icon">Hashing<wbr/>Response</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
