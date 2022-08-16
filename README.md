@@ -27,7 +27,7 @@ Based on work by
 ### Basic Hashing
 
 1. Import the class
-     * `import {Md5} from 'ts-md5/dist/md5';`
+     * `import {Md5} from 'ts-md5';`
 2. Hash some things
      * `Md5.hashStr('blah blah blah')` => hex:string
      * `Md5.hashStr('blah blah blah', true)` => raw:Int32Array(4)
@@ -59,7 +59,7 @@ It should always remain as a seperate file.
 
 ```typescript
 
-import {ParallelHasher} from 'ts-md5/dist/parallel_hasher';
+import {ParallelHasher} from 'ts-md5';
 
 let hasher = new ParallelHasher('/path/to/ts-md5/dist/md5_worker.js');
 hasher.hash(fileBlob).then(function(result) {
