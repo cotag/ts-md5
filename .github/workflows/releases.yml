@@ -61,27 +61,3 @@ jobs:
         PUBLISH_DIR: ./docs
       with:
         emptyCommits: false
-
-    - name: G-Chat Success Notify
-      uses: Co-qn/google-chat-notification@releases/v1
-      with:
-        name: Build
-        url: ${{ secrets.CHAT_SUCCESS }}
-        status: ${{ job.status }}
-      if: success()
-
-    - name: G-Chat Failed Notify
-      uses: Co-qn/google-chat-notification@releases/v1
-      with:
-        name: Build
-        url: ${{ secrets.CHAT_ERROR }}
-        status: ${{ job.status }}
-      if: failure()
-
-    - name: G-Chat Cancelled Notify
-      uses: Co-qn/google-chat-notification@releases/v1
-      with:
-        name: Build
-        url: ${{ secrets.CHAT_ERROR }}
-        status: ${{ job.status }}
-      if: cancelled()
