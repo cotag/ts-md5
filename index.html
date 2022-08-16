@@ -34,7 +34,7 @@
 </a>
 <ol>
 <li>Import the class<ul>
-<li><code>import {Md5} from &#39;ts-md5/dist/md5&#39;;</code></li>
+<li><code>import {Md5} from &#39;ts-md5&#39;;</code></li>
 </ul>
 </li>
 <li>Hash some things<ul>
@@ -54,7 +54,7 @@
 </a>
 <p>NOTE:: You have to make sure <code>ts-md5/dist/md5_worker.js</code> is made available in your build so it can be accessed directly by a browser
 It should always remain as a seperate file.</p>
-<pre><code class="language-typescript"><br/><span class="hl-6">import</span><span class="hl-1"> {</span><span class="hl-0">ParallelHasher</span><span class="hl-1">} </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-5">&#39;ts-md5/dist/parallel_hasher&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">hasher</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-3">ParallelHasher</span><span class="hl-1">(</span><span class="hl-5">&#39;/path/to/ts-md5/dist/md5_worker.js&#39;</span><span class="hl-1">);</span><br/><span class="hl-0">hasher</span><span class="hl-1">.</span><span class="hl-3">hash</span><span class="hl-1">(</span><span class="hl-0">fileBlob</span><span class="hl-1">).</span><span class="hl-3">then</span><span class="hl-1">(</span><span class="hl-2">function</span><span class="hl-1">(</span><span class="hl-0">result</span><span class="hl-1">) {</span><br/><span class="hl-1">   </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-5">&#39;md5 of fileBlob is&#39;</span><span class="hl-1">, </span><span class="hl-0">result</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/>
+<pre><code class="language-typescript"><br/><span class="hl-6">import</span><span class="hl-1"> {</span><span class="hl-0">ParallelHasher</span><span class="hl-1">} </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-5">&#39;ts-md5&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">hasher</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-3">ParallelHasher</span><span class="hl-1">(</span><span class="hl-5">&#39;/path/to/ts-md5/dist/md5_worker.js&#39;</span><span class="hl-1">);</span><br/><span class="hl-0">hasher</span><span class="hl-1">.</span><span class="hl-3">hash</span><span class="hl-1">(</span><span class="hl-0">fileBlob</span><span class="hl-1">).</span><span class="hl-3">then</span><span class="hl-1">(</span><span class="hl-2">function</span><span class="hl-1">(</span><span class="hl-0">result</span><span class="hl-1">) {</span><br/><span class="hl-1">   </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-5">&#39;md5 of fileBlob is&#39;</span><span class="hl-1">, </span><span class="hl-0">result</span><span class="hl-1">);</span><br/><span class="hl-1">});</span><br/>
 </code></pre>
 
 <a href="#building-from-src" id="building-from-src" style="color: inherit; text-decoration: none;">
@@ -67,24 +67,6 @@ It should always remain as a seperate file.</p>
 <li>Perform build using: <code>tsc</code></li>
 </ol>
 <p>You can find more information here: <a href="https://github.com/Microsoft/TypeScript/wiki/tsconfig.json">https://github.com/Microsoft/TypeScript/wiki/tsconfig.json</a></p>
-
-<a href="#type-definitions" id="type-definitions" style="color: inherit; text-decoration: none;">
-  <h2>Type Definitions</h2>
-</a>
-<p>These allow projects like jasmine to work with .ts files. This is here as a guide more than anything else.
-See: <a href="https://github.com/typings/typings">https://github.com/typings/typings</a></p>
-<ol>
-<li>Install typings: <code>npm install typings --global</code> (if you haven&#39;t already)</li>
-<li>Download definitions: <code>typings install jasmine --ambient --save</code><ul>
-<li>Note: ambient means we are searching in <a href="https://github.com/DefinitelyTyped/DefinitelyTyped">https://github.com/DefinitelyTyped/DefinitelyTyped</a></li>
-</ul>
-</li>
-<li>Reference the typings using <code>/// &lt;reference path=&quot;../typings/main.d.ts&quot; /&gt;</code> from tests</li>
-</ol>
-<p>To update typings:</p>
-<ul>
-<li>From command line run: <code>typings install</code></li>
-</ul>
 
 <a href="#scripts" id="scripts" style="color: inherit; text-decoration: none;">
   <h2>Scripts</h2>
