@@ -427,6 +427,8 @@ export class Md5 {
      * Hash the current state of the hash buffer and return the result
      * @param raw Whether to return the value as an `Int32Array`
      */
+    public end(raw?: false): string | undefined;
+    public end(raw: true): Int32Array | undefined;    
     public end(raw: boolean = false) {
         const bufLen = this._bufferLength;
         const buf8 = this._buffer8;
