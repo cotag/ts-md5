@@ -452,7 +452,7 @@ export class Md5 {
         } else {
             const matches = dataBitsLen.toString(16).match(/(.*?)(.{0,8})$/);
             if (matches === null) {
-                return;
+                throw new Error(dataBitsLen.toString(16));
             }
 
             const lo = parseInt(matches[2], 16);
