@@ -13,7 +13,7 @@ interface HashingRequest {
     blob: any;
     resolve: (...d: any) => void;
     reject: (...d: any) => void;
-};
+}
 
 export class ParallelHasher {
     private _queue: HashingRequest[] = [];
