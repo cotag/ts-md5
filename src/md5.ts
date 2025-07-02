@@ -433,7 +433,7 @@ export class Md5 {
      * Hash the current state of the hash buffer and return the result
      * @param raw Whether to return the value as an `Int32Array`
      */
-    public end(raw: boolean = false) {
+    public end(raw: boolean = false): Int32Array | string {
         const bufLen = this._bufferLength;
         const buf8 = this._buffer8;
         const buf32 = this._buffer32;
@@ -457,9 +457,7 @@ export class Md5 {
             buf32[14] = dataBitsLen;
         } else {
             const matches = dataBitsLen.toString(16).match(/(.*?)(.{0,8})$/);
-            if (matches === null) {
-                return;
-            }
+            if (matches === null) return raw ? EMPTY_STATE : '';
 
             const lo = parseInt(matches[2], 16);
             const hi = parseInt(matches[1], 16) || 0;
