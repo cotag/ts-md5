@@ -1,25 +1,24 @@
-
 {
-    "include": ["src", "types"],
-    "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
-        "outDir": "./dist/esm",
-        "sourceMap": true,
-        "downlevelIteration": true,
-        "experimentalDecorators": true,
-        "declaration": true,
-        "rootDir": "./src",
+        "target": "ES2020",
+        "useDefineForClassFields": true,
+        "module": "ESNext",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
+        "skipLibCheck": true,
+
+        /* Bundler mode */
+        "moduleResolution": "bundler",
+        "allowImportingTsExtensions": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "noEmit": true,
+
+        /* Linting */
         "strict": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "importHelpers": true,
-        "target": "es2015",
-        "lib": ["es2018", "dom"],
-        "resolveJsonModule": true
-    }
+        "noUncheckedSideEffectImports": true
+    },
+    "include": ["src"]
 }

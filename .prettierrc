@@ -1,5 +1,6 @@
 {
     "singleQuote": true,
     "tabWidth": 4,
-    "semi": true
+    "semi": true,
+    "plugins": ["prettier-plugin-organize-imports"]
 }

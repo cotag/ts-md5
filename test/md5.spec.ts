@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, test } from 'vitest';
 import { Md5 } from '../src/md5';
 
 describe('hashing things', () => {
@@ -19,13 +20,13 @@ describe('hashing things', () => {
         md5 = new Md5();
     });
 
-    it('should pass the self test', () => {
+    test('should pass the self test', () => {
         expect(Md5.hashStr('hello')).toEqual(
-            '5d41402abc4b2a76b9719d911017c592'
+            '5d41402abc4b2a76b9719d911017c592',
         );
     });
 
-    it('should hash a 64 byte string', () => {
+    test('should hash a 64 byte string', () => {
         let str =
                 '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592',
             expectedResult = 'e0b153045b08d59d4e18a98ab823ac42',
@@ -36,7 +37,7 @@ describe('hashing things', () => {
         expect(Md5.hashStr(str)).toEqual(expectedResult);
     });
 
-    it('should hash a 128 byte string', () => {
+    test('should hash a 128 byte string', () => {
         let str =
                 '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c592',
             expectedResult = 'b12bc24f5507eba4ee27092f70148415',
@@ -47,7 +48,7 @@ describe('hashing things', () => {
         expect(Md5.hashStr(str)).toEqual(expectedResult);
     });
 
-    it('should hash a 160 byte string', () => {
+    test('should hash a 160 byte string', () => {
         let str =
                 '5d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a765d41402abc4b2a76b9719d911017c5925d41402abc4b2a76b9719d911017c5925d41402abc4b2a76',
             expectedResult = '66a1e6b119bf30ade63378f770e52549',
@@ -58,7 +59,7 @@ describe('hashing things', () => {
         expect(Md5.hashStr(str)).toEqual(expectedResult);
     });
 
-    it('should work incrementally', () => {
+    test('should work incrementally', () => {
         md5.appendStr('5d41402abc4b2a421456');
         md5.appendStr('5d41402abc4b2a421456');
         md5.appendStr('5d41402abc4b2a421456a234');
@@ -73,7 +74,7 @@ describe('hashing things', () => {
         md5.start();
         md5.appendStr('5d41402abc4b2a421456');
         md5.appendStr(
-            '5d41402abc4b2a4214565d41402abc4b2a4214565d41402abc4b2a421456'
+            '5d41402abc4b2a4214565d41402abc4b2a4214565d41402abc4b2a421456',
         );
         md5.appendStr('5d41402abc4b2a421456');
         expect(md5.end()).toEqual('45762198a57a35c8523915898fb8c68c');
@@ -82,14 +83,14 @@ describe('hashing things', () => {
         md5.appendByteArray(stringToArray('5d41402abc4b2a421456'));
         md5.appendByteArray(
             stringToArray(
-                '5d41402abc4b2a4214565d41402abc4b2a4214565d41402abc4b2a421456'
-            )
+                '5d41402abc4b2a4214565d41402abc4b2a4214565d41402abc4b2a421456',
+            ),
         );
         md5.appendByteArray(stringToArray('5d41402abc4b2a421456'));
         expect(md5.end()).toEqual('45762198a57a35c8523915898fb8c68c');
     });
 
-    it('should be resumable', () => {
+    test('should be resumable', () => {
         let result, state;
 
         md5.appendStr('5d41402abc4b2a421456');
@@ -123,15 +124,15 @@ describe('hashing things', () => {
         expect(md5.end()).toEqual(result);
     });
 
-    it('can handle UTF8 strings', () => {
+    test('can handle UTF8 strings', () => {
         let str = 'räksmörgås',
             arr = stringToArray(str);
 
         expect(md5.appendByteArray(arr).end()).toEqual(
-            '09d9d71ec8a8e3bc74e51ebd587154f3'
+            '09d9d71ec8a8e3bc74e51ebd587154f3',
         );
         expect(Md5.hashAsciiStr(str)).toEqual(
-            '09d9d71ec8a8e3bc74e51ebd587154f3'
+            '09d9d71ec8a8e3bc74e51ebd587154f3',
         );
 
         expect(Md5.hashStr(str)).toEqual('e462805dcf84413d5eddca45a4b88a5e');
@@ -141,10 +142,10 @@ describe('hashing things', () => {
 
         md5 = new Md5();
         expect(md5.appendByteArray(arr).end()).toEqual(
-            '4664c02a4cf6b69392f8309b6d6256f5'
+            '4664c02a4cf6b69392f8309b6d6256f5',
         );
         expect(Md5.hashAsciiStr(str)).toEqual(
-            '4664c02a4cf6b69392f8309b6d6256f5'
+            '4664c02a4cf6b69392f8309b6d6256f5',
         );
 
         expect(Md5.hashStr(str)).toEqual('453931ab48a4a5af69f3da3c21064fc9');

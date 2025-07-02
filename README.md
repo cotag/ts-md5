@@ -73,15 +73,7 @@ hasher.hash(fileBlob).then(function(result) {
 ```
 
 
-## Building from src
-
-The project is written in typescript and transpiled into ES5.
-
-1. Install TypeScript: `npm install -g typescript` (if you haven't already)
-2. Configure compile options in `tsconfig.json`
-3. Perform build using: `tsc`
-
-You can find more information here: https://github.com/Microsoft/TypeScript/wiki/tsconfig.json
+## Building from source
 
 ## Scripts
 
@@ -94,7 +86,6 @@ You can find more information here: https://github.com/Microsoft/TypeScript/wiki
 1. Sign up to https://www.npmjs.com/
 2. Configure `package.json` https://docs.npmjs.com/files/package.json
 3. run `npm publish` https://docs.npmjs.com/cli/publish
-
 
 # License
 
