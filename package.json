@@ -5,7 +5,7 @@
     "homepage": "https://github.com/cotag/ts-md5",
     "type": "module",
     "main": "dist/index.cjs.js",
-    "module": "dist/index.esm.js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "keywords": [
         "placeos",

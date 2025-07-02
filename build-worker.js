@@ -3,6 +3,10 @@ import fs from 'fs';
 function cleanJavascriptFile(content) {
     var output = content;
     output = output.replace(/exports\./gi, 'var '); // Remove exports
+    output = output.replace(
+        'Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});',
+        '',
+    ); // Remove module.exports
     return output;
 }
 
